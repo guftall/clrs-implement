@@ -4,26 +4,6 @@ using System.Text;
 
 namespace DataStructures.Heap
 {
-
-    public static class Heap
-    {
-        public static void HeapSort(List<int> list)
-        {
-
-            var maxHeap = MaxHeap.BuildHeap(list);
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                /* Notice
-                 * x parameter always must be member by index 0, means root of tree
-                 */
-                maxHeap.exchange(list, 0, list.Count - i - 1);
-                --maxHeap.HeapSize;
-                maxHeap.Heapify(0);
-            }
-        }
-    }
-    
     public interface IHeap
     {
         void Heapify(int index);
@@ -63,13 +43,13 @@ namespace DataStructures.Heap
                 }
 
                 if (largest == index) return;
-                exchange(Objects, index, largest);
+                Exchange(Objects, index, largest);
                 index = largest;
             }
         }
 
 
-        internal void exchange(IList<int> list, int x, int y)
+        public static void Exchange(IList<int> list, int x, int y)
         {
             var tmp = list[x];
             list[x] = list[y];

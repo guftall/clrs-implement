@@ -18,6 +18,21 @@ namespace Algorithms
             Console.WriteLine($"{DateTime.Now.ToString()} Finished");
             Console.WriteLine($"Insure: {InsureSort(arr)}");
         }
+        
+        
+        private static void TestHeapSort()
+        {
+            var arr = new List<int>();
+            
+            arr.Add(2);
+            arr.Add(4);
+            arr.Add(28);
+            arr.Add(1);
+            arr.Add(12);
+            arr.Add(5);
+            HeapSort.Sort(arr);
+            PrintList(arr);
+        }
 
         public static List<int> GetSimpleTestArray()
         {
@@ -53,7 +68,6 @@ namespace Algorithms
             arr.Add(5);
             return arr;
         }
-
 
         public static void PrintList(List<int> arr)
         {
