@@ -13,7 +13,7 @@ namespace Algorithms
             var cArr = new int[k + 1];
             var bArr = new int[array.Count];
             
-            // all elements in int[] is initialized to 0
+            // all elements in int[] is already initialized to 0
 
             for (int j=1; j<array.Count; j++)
             {
@@ -44,6 +44,28 @@ namespace Algorithms
         {
             var max = MaxOfArray(array);
             _Sort(array, max);
+        }
+
+        public void SortBasedOnBitNumber(ref int[] array, int bit)
+        {
+            var cArr = new int[2];
+            var bArr = new int[array.Length];
+
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                ++cArr[(array[i] & (1 << bit)) > 0 ? 1 : 0];
+            }
+
+            cArr[1] = cArr[1] + cArr[0];
+            
+            for (int i = array.Length - 1; i > 0 ; i--)
+            {
+                bArr[cArr[(array[i] & (1 << bit)) > 0 ? 1 : 0]] = array[i];
+                --cArr[(array[i] & (1 << bit)) > 0 ? 1 : 0];
+            }
+
+            array = bArr;
         }
 
         private static int MaxOfArray(IEnumerable<int> array)

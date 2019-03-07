@@ -16,12 +16,20 @@ namespace Algorithms
 
 //            TestHeapSort();
 //            TestQuickSort();
-            TestCountingSort();
+//            TestCountingSort();
+            TestRadixSort();
 
             var end = DateTime.Now;
             Console.WriteLine($"{end.ToString()} Finished");
             Console.WriteLine($"Total time: {(end - start).Seconds}s | {(end - start).TotalMilliseconds}ms");
             InsureSort(array);
+        }
+
+        private static void TestRadixSort()
+        {
+            array = GetHugeTestArray(0, 1024);
+            ISort radixSort = new RadixSort();
+            radixSort.Sort(array);
         }
 
         private static void TestCountingSort()
