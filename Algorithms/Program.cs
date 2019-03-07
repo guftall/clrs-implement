@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Algorithms.Sort;
 
@@ -6,32 +7,43 @@ namespace Algorithms
 {
     class Program
     {
+
+        private static List<int> array;
         static void Main(string[] args)
         {
-            var arr = GetHugeTestArray();
-            QuickSort.RandomizedQuickSort(arr, 0, arr.Count - 1);
+            var start = DateTime.Now;
+            Console.WriteLine($"{start.ToString()} Start sorting...");
 
-            Console.WriteLine($"{DateTime.Now.ToString()} Start sorting...");
+//            TestHeapSort();
+//            TestQuickSort();
+            TestCountingSort();
 
-//            QuickSort.DefaultQuickSort(arr, 0, arr.Count - 1); // Take too long to complete
-            QuickSort.RandomizedQuickSort(arr, 0, arr.Count - 1);
-            Console.WriteLine($"{DateTime.Now.ToString()} Finished");
-            Console.WriteLine($"Insure: {InsureSort(arr)}");
+            var end = DateTime.Now;
+            Console.WriteLine($"{end.ToString()} Finished");
+            Console.WriteLine($"Total time: {(end - start).Seconds}s | {(end - start).TotalMilliseconds}ms");
+            InsureSort(array);
         }
-        
+
+        private static void TestCountingSort()
+        {
+            array = GetHugeTestArray();
+            ISort countingSort = new CountingSort();
+            countingSort.Sort(array);
+        }
+
+        private static void TestQuickSort()
+        {
+            array = GetHugeTestArray();
+            ISort quickSort = new QuickSort();
+            quickSort.Sort(array);
+        }
         
         private static void TestHeapSort()
         {
-            var arr = new List<int>();
+            array = GetHugeTestArray();
             
-            arr.Add(2);
-            arr.Add(4);
-            arr.Add(28);
-            arr.Add(1);
-            arr.Add(12);
-            arr.Add(5);
-            HeapSort.Sort(arr);
-            PrintList(arr);
+            ISort heapSort = new HeapSort();
+            heapSort.Sort(array);
         }
 
         public static List<int> GetSimpleTestArray()
@@ -48,24 +60,17 @@ namespace Algorithms
             return arr;
         }
         
-        public static List<int> GetHugeTestArray()
+        public static List<int> GetHugeTestArray(int min = 0, int max = 10_000_000)
         {
             
             var arr = new List<int>();
 
             var r = new Random(DateTime.Now.Millisecond);
 
-            for (int i = 0; i < 10_000_000; i++)
+            for (int i = 0; i < max; i++)
             {
-                arr.Add(r.Next(0, 10_000_000));
+                arr.Add(r.Next(min, max));
             }
-            
-            arr.Add(2);
-            arr.Add(4);
-            arr.Add(28);
-            arr.Add(1);
-            arr.Add(12);
-            arr.Add(5);
             return arr;
         }
 
@@ -78,15 +83,13 @@ namespace Algorithms
             });
         }
 
-        public static bool InsureSort(List<int> array)
+        public static void InsureSort(List<int> array)
         {
             for (int i = 0; i < array.Count - 1; i++)
             {
                 if (array[i] > array[i + 1])
-                    return false;
+                    throw new Exception("Array not sorted");
             }
-
-            return true;
         }
     }
 }

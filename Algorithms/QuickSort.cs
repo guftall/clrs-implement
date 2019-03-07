@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Algorithms.Sort
 {
-    public class QuickSort
+    public class QuickSort : ISort
     {
         
         private static Random r = new Random(DateTime.Now.Millisecond);
@@ -54,6 +54,11 @@ namespace Algorithms.Sort
             int tmp = array[x];
             array[x] = array[y];
             array[y] = tmp;
+        }
+
+        public void Sort(List<int> array)
+        {
+            RandomizedQuickSort(array, 0, array.Count - 1);
         }
     }
 }
