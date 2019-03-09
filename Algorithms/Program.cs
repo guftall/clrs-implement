@@ -14,9 +14,6 @@ namespace Algorithms
             var start = DateTime.Now;
             Console.WriteLine($"{start.ToString()} Start sorting...");
 
-//            TestHeapSort();
-//            TestQuickSort();
-//            TestCountingSort();
             TestRadixSort();
 
             var end = DateTime.Now;
@@ -28,8 +25,7 @@ namespace Algorithms
         private static void TestRadixSort()
         {
             array = GetHugeTestArray(0, 1024);
-            ISort radixSort = new RadixSort();
-            radixSort.Sort(array);
+            RadixSort._SortByBits(ref array);
         }
 
         private static void TestCountingSort()
