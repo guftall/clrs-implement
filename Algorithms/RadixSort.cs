@@ -19,19 +19,17 @@ namespace Algorithms
         };
         public void Sort(List<int> array)
         {
-            var max = array.Max();
-            var digitsCount = (int) Math.Ceiling(Math.Log10(max));
+//            var max = array.Max();
+//            var digitsCount = (int) Math.Ceiling(Math.Log10(max));
             
-            _Sort(array.ToArray());
         }
         
-        public static void _Sort(int[] arr)
+        public static void _SortByBits(ref List<int> arr)
         {
-            Console.WriteLine((1 << 30) & 1 << 30);
+            var countingSort = new CountingSort();
             for (int bit = 0; bit <= 30; bit++)
             {
-                var countingSort = new CountingSort();
-                countingSort.SortBasedOnBitNumber(ref arr, bit);
+                 countingSort.SortBasedOnBitNumber(ref arr, bit);
             }
         }
     }
