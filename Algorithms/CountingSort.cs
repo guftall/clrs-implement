@@ -46,23 +46,25 @@ namespace Algorithms
             _Sort(array, max);
         }
 
-        public void SortBasedOnBitNumber(ref int[] array, int bit)
+        public void SortBasedOnBitNumber(ref List<int> array, int bit)
         {
             var cArr = new int[2];
-            var bArr = new int[array.Length];
+            var bArr = new List<int>(array.Count);
+            bArr.AddRange(Enumerable.Repeat(0, array.Count));
 
 
-            for (int i = 1; i < array.Length; i++)
+            int cArrIndex = 1 << bit;
+            for (int i = 0; i < array.Count; i++)
             {
-                ++cArr[(array[i] & (1 << bit)) > 0 ? 1 : 0];
+                ++cArr[(array[i] & cArrIndex) > 0 ? 1 : 0];
             }
 
             cArr[1] = cArr[1] + cArr[0];
             
-            for (int i = array.Length - 1; i > 0 ; i--)
+            for (int i = array.Count - 1; i >= 0 ; i--)
             {
-                bArr[cArr[(array[i] & (1 << bit)) > 0 ? 1 : 0]] = array[i];
-                --cArr[(array[i] & (1 << bit)) > 0 ? 1 : 0];
+                bArr[cArr[(array[i] & cArrIndex) > 0 ? 1 : 0] - 1] = array[i];
+                --cArr[(array[i] & cArrIndex) > 0 ? 1 : 0];
             }
 
             array = bArr;
