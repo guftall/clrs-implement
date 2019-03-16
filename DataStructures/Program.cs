@@ -10,6 +10,14 @@ namespace DataStructures
         static void Main(string[] args)
         {
             
+            TestBinaryTreePrintRecursive();
+        }
+
+        static void TestBinaryTreePrintRecursive()
+        {
+            int i = 0;
+            var t = BinaryTree.InitializeSimpleTree(4, ref i);
+            BinaryTree.VisitNonRecursive(t);
         }
 
         static void TestMaxHeap()
